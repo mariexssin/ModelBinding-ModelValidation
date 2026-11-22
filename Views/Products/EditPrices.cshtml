@@ -1,0 +1,50 @@
+@model List<ProductsValidation.Models.Product>
+
+@{
+    ViewData["Title"] = "Edit Prices";
+}
+
+<h1>Edit Prices (@ViewBag.Category)</h1>
+<hr />
+
+<form asp-action="EditPrices" method="post">
+    <input type="hidden" name="category" value="@ViewBag.Category" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input asp-for="@Model[i].Id" class="form-control" readonly />
+                        <input type="hidden" asp-for="@Model[i].Type" />
+                        <input type="hidden" asp-for="@Model[i].Description" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].Name" class="form-control" readonly />
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].Price" class="form-control" />
+                        <span asp-validation-for="@Model[i].Price" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

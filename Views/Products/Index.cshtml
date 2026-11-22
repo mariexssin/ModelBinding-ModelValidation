@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<ProductsValidation.Models.Product>
+@using ProductsValidation.Models
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Products";
 }
 
 <h1>Index</h1>
@@ -9,6 +10,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<p>
+    <strong>Edit prices by category:</strong>
+    @foreach (Product.Category cat in Enum.GetValues(typeof(Product.Category)))
+    {
+        <a asp-action="EditPrices" asp-route-category="@cat" class="btn btn-sm btn-outline-secondary">@cat</a>
+    }
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -49,8 +59,8 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "View", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
